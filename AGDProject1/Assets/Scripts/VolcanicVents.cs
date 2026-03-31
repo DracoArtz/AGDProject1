@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class VolcanicVent : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip eruptionSound;
+
     [Header("Timing")]
     public float activeTime = 3f;
     public float minDelay = 3f;
@@ -33,13 +36,18 @@ public class VolcanicVent : MonoBehaviour
             float waitTime = Random.Range(minDelay, maxDelay);
             yield return new WaitForSeconds(waitTime);
 
+
             isActive = true;
 
             if (ventParticles != null)
+            {
                 ventParticles.Play();
+                audioSource.PlayOneShot(eruptionSound);
+            }
 
             if (camShake != null)
                 StartCoroutine(camShake.Shake(shakeDuration, shakeMagnitude));
+
 
             yield return new WaitForSeconds(activeTime);
 

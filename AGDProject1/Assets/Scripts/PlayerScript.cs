@@ -3,6 +3,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
+    public AudioSource source;
+    public AudioClip jumpSound;
+
     public float moveSpeed = 5f;
     public float jumpForce = 8f;
 
@@ -38,6 +41,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (ctx.performed && isGrounded)
         {
+            source.PlayOneShot(jumpSound);
             rb2d.linearVelocity = new Vector2(rb2d.linearVelocity.x, 0f);
             rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
